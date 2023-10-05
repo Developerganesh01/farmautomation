@@ -1,0 +1,97 @@
+/* Reset some default styles for margin and padding */
+body, h2, h3 {
+    margin: 0;
+    padding: 0;
+}
+
+/* Center the sensor name and range vertically and horizontally */
+.sensor {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh; /* Make the sensor div fill the entire viewport height */
+    background-color: #f0f0f0; /* Background color for the sensor container */
+}
+
+/* Style the sensor name */
+.sensor-name {
+    font-size: 24px;
+    color: #333; /* Change the color to your preference */
+    margin-bottom: 10px;
+}
+
+/* Style the sensor range */
+.sensor-range {
+    font-size: 18px;
+    color: #666; /* Change the color to your preference */
+    margin-bottom: 20px;
+}
+
+/* Style the sensor graphs container */
+.sensor-graphs {
+    display: flex;
+    justify-content: center;
+    width: 80%; /* Adjust the width to your preference */
+}
+
+.hamburger{
+    position: absolute;
+    top: 20px;
+    right: 10px;
+    cursor: pointer;
+}
+
+/* Style the individual sensor graphs */
+.sensor-graph {
+    width: 90%; /* Adjust the width to your preference */
+    height: 80vh; /* Set a fixed height for the graphs */
+    border: 1px solid #ddd; /* Add a border for separation */
+    background-color: #fff; /* Add a background color */
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Add a subtle box shadow */
+    transition: transform 0.3s ease-in-out; /* Add a smooth hover effect */
+}
+
+.sensor-graph:hover {
+    transform: translateY(-5px); /* Lift the graph slightly on hover */
+}
+
+.topnav {
+    overflow: hidden;
+    background-color: #333;
+    position: relative;
+  }
+  
+  /* Hide the links inside the navigation menu (except for logo/home) */
+  .topnav #myLinks {
+    display: none;
+  }
+  
+  /* Style navigation menu links */
+  .topnav a {
+    color: white;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+    display: block;
+  }
+  
+  /* Style the hamburger menu */
+  .topnav a.icon {
+    background: black;
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  
+  /* Add a grey background color on mouse-over */
+  .topnav a:hover {
+    background-color: #ddd;
+    color: black;
+  }
+  
+  /* Style the active link (or home/logo) */
+  .active {
+    background-color: #04AA6D;
+    color: white;
+  }

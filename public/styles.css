@@ -1,0 +1,28 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    padding: 10px;
+    /* background-color: aquamarine; */
+}
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px;
+    background-image: linear-gradient(#a6f68d,#6ef88e);
+    min-height: 93vh;
+    min-width: 85vw;
+}
+.container .ph,.ultrasonic,.tdsSensor{
+    margin: 0.5rem;
+    /* background-color: azure;
+    width: 100%;
+    height: 20px; */
+}
+.ph a,.ultrasonic a,.tdsSensor a,.temperatureSensor a{
+    text-decoration: none;
+    cursor: pointer;
+}
