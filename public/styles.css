@@ -1,28 +1,37 @@
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
-body{
+  }
+  
+  body {
     padding: 10px;
-    /* background-color: aquamarine; */
-}
-.container{
+  }
+  
+  .container {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex-wrap:wrap; /* Allow elements to wrap into multiple rows */
+    justify-content: center;
     margin: 10px;
-    background-image: linear-gradient(#a6f68d,#6ef88e);
+    background-image: linear-gradient(#a6f68d, #6ef88e);
     min-height: 93vh;
     min-width: 85vw;
-}
-.container .ph,.ultrasonic,.tdsSensor{
+    padding: 80px; /* Add some padding between elements */
+  }
+  
+  /* Give limited size to individual elements and arrange them in rows */
+  .ph, .ultrasonic, .tdsSensor, .temperatureSensor,.barometerSensor,.doxygenSensor,.ldrSensor {
     margin: 0.5rem;
-    /* background-color: azure;
-    width: 100%;
-    height: 20px; */
-}
-.ph a,.ultrasonic a,.tdsSensor a,.temperatureSensor a{
+    background-color: rgba(240, 255, 255, 0.742);
+    width:40vw;
+    text-align: center;
+    font-size: 30px;
+  }
+  .ph div, .ultrasonic div, .tdsSensor div, .temperatureSensor div,.barometerSensor div,.doxygenSensor div,.ldrSensor div {
+    margin: 1rem;
+  }
+  .ph a, .ultrasonic a, .tdsSensor a, .temperatureSensor a ,.barometerSensor a,.doxygenSensor a,.ldrSensor a{
     text-decoration: none;
     cursor: pointer;
-}
+  }
+  
