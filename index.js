@@ -17,16 +17,119 @@ app.set('views', path.join(__dirname, 'views'));
 app.get('/',(req,res)=>{
     res.status(200).sendFile(path.join(__dirname,'public','index.html'));
 })
+//==============================================================================================================
+/* sensor componment structure ***==>placeholder
+<a class="sensor-box" href=***sensor.href*****>
+    <h2>****sensor.title****</h2>
+    <p class="sensor-description">***sensor.decription***</p>
+    <div class="sensor-value" id=***sensor.valueId**>Loading...</div>
+    <button class="view-sensor-data-button" data-sensor=***sensor.dataAttribute***>****
+    sensor.dataValue***</button>
+</a>
+*/
+/* conatins two values=> temperature and humidity 
+ <a class="sensor-box" href="temperature-humidity-sensor">
+            <h2>Temperature and Humidity Sensor (DHT22)</h2>
+            <p class="sensor-description">Used to measure the temperature and humidity values.</p>
+            <div class="sensor-value" id="temperature-value">Loading...</div>
+            <div class="sensor-value" id="humidity-value">Loading...</div>
+            <button class="view-sensor-data-button" data-sensor="temperature-humidity-sensor">View Temperature and Humidity Sensor's Data</button>
+        </a>
+*/
+//================================================================================================================
+//============================sensors data related to three main pages============================
+const environmentMonitoringSensors=[
+ { href:'co2-sensor',title:'CO2 Gas Sensor',
+ description:'Measures the concentration of CO2 gas in the air',
+ valueId: 'co2-value', dataAttribute: 'co2-sensor',dataValue:"View Conc of CO2 Sensor's Data"
+  },
+  { href:'oxygen-sensor',title:'Oxygen Gas Sensor',
+  description:'Measures the concentration of oxygen gas in the air',
+  valueId: 'oxygen-value', dataAttribute: 'oxygen-sensor',dataValue:"View Conc of Oxygen Sensor's Data"
+   },
+   { href:'barometric-sensors',title:'BMP180 Barometric Sensor',
+   description:'Measures atmospheric pressure',
+   valueId: 'barometric-value', dataAttribute:'pressure-sensor',dataValue:"View Atmospheric Pressure Sensor's Data"
+    }
+];
+const nutrientDosingSensors=[ { href:'ph-sensor',title:'PH Sensor',
+description:'Used to measure the acidity or alkalinity...',
+valueId: 'ph-value', dataAttribute: 'ph-sensor',dataValue:"View PH Sensor's Data"
+ },
+ { href:'tds-sensor',title:'TDS Sensor',
+description:'Measures the total dissolved solids in water with a range of 0 to 1000 ppm.',
+valueId: 'tds-value', dataAttribute: 'tds-sensor',dataValue:"View TDS Sensor's Data"
+ },
+ { href:'ultrasonic-sensor',title:'Ultrasonic Sensor',
+description:'Measuring distance',
+valueId: 'ultrasonic-value', dataAttribute: 'ultrasonic-sensor',dataValue:"View Ultrasonic Sensor's Data"
+ },
+ { href:'temperature-sensor',title:'Temperature Sensor',
+description:"Measures water's temperature",
+valueId: 'temperature-value', dataAttribute: 'temperature-sensor',dataValue:"View Temperature Sensor's Data"
+ },
+ { href:'water-flow-meter',title:'Water Flow Meter',
+description:'Measures the quantity of water flown through it',
+valueId: 'water-flow-value', dataAttribute: 'water-flow-sensor',dataValue:"View Water-flow Sensor's Data"
+ },
+ { href:'dissolve-oxygen-sensor',title:'Dissolve Oxygen Sensor',
+ description:'Measures oxygen pressure in the tank',
+ valueId: 'dissolve-oxygen-value', dataAttribute: 'dissolve-oxygen-sensor',dataValue:"View Dissolve oxygen Sensor's Data"
+  },
+];
+const growLightsSensor=[{ href:'bh1750-sensor',title:'BH1750 (GY-30) Sensor',
+description:"Measures ambient light intensity",
+valueId: 'bh1750-value', dataAttribute: 'bh1750-sensor',dataValue:"View BH1750 Sensor's Data"
+ },
+ { href:'ldr-sensor',title:'LDR Sensor',
+ description:"Measures the resistance of the light-dependent resistor",
+ valueId: 'ldr-value', dataAttribute: 'ldr-sensor',dataValue:"View LDR Sensor's Data"
+}];
 //============================three main page routes===============================================
- app.get('/environment-monitoring',(req,res)=>{
-    res.sendFile(path.join(__dirname,'..','public','environment-monitoring.html'));
+const ejs=require('ejs');
+app.get('/environment-monitoring', async (req, res) => {
+    const componentPromises = environmentMonitoringSensors.map(sensor => {
+        return ejs.renderFile('./views/sensor.ejs', { sensor });
+    });
+    const componentStrings = await Promise.all(componentPromises);
+    const content = componentStrings.join('');
+    res.render('layout', {
+        title: "Indoor Environment Monitoring System",
+        stylesheet: "environment-monitoring.css",
+        content
+    });
 });
- app.get('/nutrient-dosing',(req,res)=>{
-    res.sendFile(path.join(__dirname,'..','public','nutrient-dosing.html'));
+ app.get('/nutrient-dosing',async(req,res)=>{
+    const componentpromises=nutrientDosingSensors.map((sensor)=>{
+        return ejs.renderFile('./views/sensor.ejs',{sensor});
+    });
+    const components=await Promise.all(componentpromises);
+    const content=components.join('');
+    res.render('layout',{
+        title:"Automatic Nutrient Dosing System",
+        stylesheet:"nutrient-dosing.css",
+        content
+    });
 });
- app.get('/grow-lights',(req,res)=>{
-    res.sendFile(path.join(__dirname,'..','public','grow-lights.html'));
+ app.get('/grow-lights',async(req,res)=>{
+    const componentPromises=growLightsSensor.map((sensor)=>{
+        return ejs.renderFile('./views/sensor.ejs',{sensor});
+    })
+    const components=await Promise.all(componentPromises);
+    const content=components.join('');
+    res.render('layout',{
+        title:"Grow Lights Automation System",
+        stylesheet:"grow-lights.css",
+        content
+    })
 });
+/*<a class="sensor-box" href="<%= sensor.href %>">
+    <h2><%= sensor.title %></h2>
+    <p class="sensor-description"><%= sensor.description %></p>
+    <div class="sensor-value" id="<%= sensor.valueId %>">Loading...</div>
+    <button class="view-sensor-data-button" data-sensor="<%= sensor.dataAttribute %>">View <%= sensor.dataValue %> Data</button>
+</a>
+*/ 
 //==================================importing models===============================================
 const Phmodel=require('./models/phmodel');
 const Barometermodel=require('./models/barometricmodel');
@@ -98,6 +201,14 @@ const handleSensorData = async(req,res,model) => {
 app.get('/:sensor',(req,res)=>{
     handleSensorPage(req,res);
 })
+app.get('/ph-sensor', async(req, res) => {
+    try{
+        const sensor="ph-sensor";
+    res.render('sensor-data', { sensor  });
+    }catch{
+        console.log("err");
+    }
+});
 app.get('/data/:sensor',async(req,res)=>{
     const sensor=req.params.sensor;
     switch(sensor)
@@ -126,6 +237,8 @@ app.get('/data/:sensor',async(req,res)=>{
         case 'ldr-sensor':
             await handleSensorData(req,res,Ldrmodel);
             break;   
+        default:
+            res.status(404).send('Not Found: Invalid Key');
     }
 })
 //=====================================server connection=======================================
