@@ -1,0 +1,50 @@
+<!-- views/sensor-data.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sensor Data</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+
+        #sensor-plot-container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        canvas {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const sensor = "<%= sensor %>";
+    </script>
+    <script src="/sensor-plot.js"></script> 
+</head>
+
+<body>
+    <div id="sensor-plot-container">
+        <h1>Sensor Data for <%= sensor %></h1>
+        <canvas id="sensor-plot" width="800" height="400"></canvas>
+    </div>
+</body>
+
+</html>
