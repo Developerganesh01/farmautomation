@@ -98,14 +98,6 @@ const handleSensorData = async(req,res,model) => {
 app.get('/:sensor',(req,res)=>{
     handleSensorPage(req,res);
 })
-app.get('/ph-sensor', async(req, res) => {
-    try{
-        const sensor="ph-sensor";
-    res.render('sensor-data', { sensor  });
-    }catch{
-        console.log("err");
-    }
-});
 app.get('/data/:sensor',async(req,res)=>{
     const sensor=req.params.sensor;
     switch(sensor)
