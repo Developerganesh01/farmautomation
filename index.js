@@ -3,7 +3,7 @@ const path=require('path');
 const mongoose=require('mongoose');
 const dotenv=require('dotenv');
 const app=express();
-mongoose.connect("mongodb+srv://ganesh:012345@cluster0.a7uir7c.mongodb.net/testing?retryWrites=true&w=majority");
+
 app.use(express.static("public"));
 app.use((req, res, next) => {
   if (req.url.endsWith(".css")) {
