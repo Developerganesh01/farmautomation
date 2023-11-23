@@ -12,8 +12,14 @@
       "dest": "server.js"
     }
   ],
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/server.js"
+    }
+  ],
   "static": {
-    "source": "public/css",
-    "public": "/css"
+    "source": ["public/css", "public/images"],
+    "prefix": "/"
   }
 }
