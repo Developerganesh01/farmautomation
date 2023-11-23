@@ -7,6 +7,7 @@ dotenv.config();
 const DB_STRING=process.env.DB_STRING;
 const DB_USER=process.env.DB_USER;
 const DB_PASSWORD=process.env.DB_PASSWORD;
+const PORT=process.env.PORT;
 mongoose.connect(DB_STRING.replace("<user>",DB_USER).replace("<password>",DB_PASSWORD))
 .then(()=>{
     console.log("connected to database");
@@ -248,7 +249,7 @@ app.get('/data/:sensor',async(req,res)=>{
     }
 })
 //=====================================server connection=======================================
-app.listen('5000',()=>{
+app.listen(PORT,()=>{
     console.log("server started");
 });
  
