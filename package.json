@@ -1,16 +1,19 @@
 {
-  "name": "farmautomation",
+  "name": "refactory",
   "version": "1.0.0",
-  "description": "displaying the information about sensors",
-  "main": "index.js",
+  "description": "",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start":"nodemon index.js"
+    "start": "nodemon server.js"
   },
   "author": "ganesh",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^16.3.1",
+    "ejs": "^3.1.9",
     "express": "^4.18.2",
-    "nodemon": "^3.0.1"
+    "mongoose": "^8.0.1",
+    "path": "^0.12.7"
   }
 }
