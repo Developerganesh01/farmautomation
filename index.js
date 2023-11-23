@@ -3,7 +3,16 @@ const path=require('path');
 const mongoose=require('mongoose');
 const dotenv=require('dotenv');
 const app=express();
-
+dotenv.config();
+const DB_STRING=process.env.DB_STRING;
+const DB_USER=process.env.DB_USER;
+const DB_PASSWORD=process.env.DB_PASSWORD;
+mongoose.connect(DB_STRING.replace("<user>",DB_USER).replace("<password>",DB_PASSWORD))
+.then(()=>{
+    console.log("connected to database");
+}).catch((err)=>{
+    console.log(`connection to database failed ${err}`);
+});
 app.use(express.static("public"));
 app.use((req, res, next) => {
   if (req.url.endsWith(".css")) {
@@ -95,7 +104,6 @@ app.get('/environment-monitoring', async (req, res) => {
     const content = componentStrings.join('');
     res.render('layout', {
         title: "Indoor Environment Monitoring System",
-        stylesheet: "environment-monitoring.css",
         content
     });
 });
@@ -107,7 +115,6 @@ app.get('/environment-monitoring', async (req, res) => {
     const content=components.join('');
     res.render('layout',{
         title:"Automatic Nutrient Dosing System",
-        stylesheet:"nutrient-dosing.css",
         content
     });
 });
@@ -119,7 +126,6 @@ app.get('/environment-monitoring', async (req, res) => {
     const content=components.join('');
     res.render('layout',{
         title:"Grow Lights Automation System",
-        stylesheet:"grow-lights.css",
         content
     })
 });
