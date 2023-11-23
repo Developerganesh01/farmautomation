@@ -245,7 +245,7 @@ app.get('/data/:sensor',async(req,res)=>{
             await handleSensorData(req,res,Ldrmodel);
             break;   
         default:
-            res.status(404).send('Not Found: Invalid Key');
+            res.status(404).send('Not Found: incorrect URL');
     }
 })
 //=====================================server connection=======================================
