@@ -26,6 +26,7 @@ body {
 }
 
 .sensor-box {
+    text-decoration:none;
     width: 300px;
     background-color: #fff;
     border: 2px solid #5c7430; /* Dark green color for the border */
