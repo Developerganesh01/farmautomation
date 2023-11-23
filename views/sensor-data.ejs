@@ -1,7 +1,5 @@
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -35,10 +33,55 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         const sensor = "<%= sensor %>";
-    </script>
-    <script src="/sensor-plot.js"></script> 
+        async function chart(data) {
+const sensorData= data;
+console.log(sensorData);
+const timestamps = sensorData.map(entry => new Date(entry.current_time));
+const values = sensorData.map(entry => entry.value);
+const ctx = document.getElementById('sensor-plot').getContext('2d');
+new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: timestamps,
+        datasets: [{
+            label: 'Sensor Data',
+            data: values,
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 2,
+            fill: false,
+        }]
+    },
+    options: {
+        scales: {
+            x: [{
+                type: 'time',
+                time: {
+                    unit: 'minute',
+                    displayFormats: {
+                        minute: 'HH:mm',
+                    },
+                },
+                position: 'bottom'
+            }],
+            y: [{
+                type: 'linear',
+                position: 'left'
+            }]
+        }
+    }
+});
+};
+fetch(`/data/${sensor}`)
+.then(response => {
+    if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return response.json();
+})
+.then(data => chart(data))
+.catch(error => console.log(error));
+    </script> 
 </head>
-
 <body>
     <div id="sensor-plot-container">
         <h1>Sensor Data for <%= sensor %></h1>
