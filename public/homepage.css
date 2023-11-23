@@ -70,6 +70,7 @@ main {
 
 .feature {
     display: inline-block;
+    text-decoration:none;
     width: 300px;
     background-color:lightgoldenrodyellow;
     border: 2px solid black; /* Dark green color for the border */
