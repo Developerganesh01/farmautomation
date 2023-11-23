@@ -25,7 +25,7 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 app.get('/',(req,res)=>{
-    res.status(200).sendFile(path.join(__dirname,'public','index.html'));
+    res.status(200).sendFile(path.join(__dirname,'public','homepage.html'));
 })
 //==============================================================================================================
 /* sensor componment structure ***==>placeholder
