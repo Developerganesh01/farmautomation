@@ -14,7 +14,7 @@ mongoose.connect(DB_STRING.replace("<user>",DB_USER).replace("<password>",DB_PAS
 }).catch((err)=>{
     console.log(`connection to database failed ${err}`);
 });
-app.use(express.static("public"));
+app.use(express.static(__dirname + "/public/"));
 app.use((req, res, next) => {
   if (req.url.endsWith(".css")) {
     res.type("text/css");
